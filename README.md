@@ -1,7 +1,7 @@
 <h1>Intermediate JavaScript: Password Generator</h1>
 
 <h2>Link to deployed webpage</h2>
-
+https://alligatorpulpfiction.github.io/password-challenge/
 
 <h2>Project description</h2>
 
