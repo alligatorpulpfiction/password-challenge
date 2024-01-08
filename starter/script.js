@@ -1,4 +1,3 @@
-// Array of special characters to be included in password
 var specialCharacters = [
   '@',
   '%',
@@ -25,10 +24,8 @@ var specialCharacters = [
   '.'
 ];
 
-// Array of numeric characters to be included in password
 var numericCharacters = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// Array of lowercase characters to be included in password
 var lowerCasedCharacters = [
   'a',
   'b',
@@ -58,7 +55,6 @@ var lowerCasedCharacters = [
   'z'
 ];
 
-// Array of uppercase characters to be included in password
 var upperCasedCharacters = [
   'A',
   'B',
@@ -88,28 +84,25 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-// Function to prompt user for password options
 function getPasswordOptions() { 
-  var passwordLength = prompt("Please enter the length of the password (between 8 and 128 characters):");
+  var passwordLength = prompt("Please enter the length of the password that you require (between 8 and 128 characters):");
 
   if (passwordLength < 8 || passwordLength > 128) {
-    alert("Password length must be between 8 and 128 characters.");
-      return;
+    showMessage("Password length must be between 8 and 128 characters.");
+    return null;
   }
 
-  if (passwordLength === null) {
-    alert("Password must be at least 8 characters.");
-  }
-
-  var includeLowercase = confirm("Include lowercase characters?");
-  var includeUppercase = confirm("Include uppercase characters?");
-  var includeNumeric = confirm("Include numeric characters?");
-  var includeSpecialChars = confirm("Include special characters?");
-
-  if (!includeLowercase && !includeUppercase && !includeNumeric && !includeSpecialChars) {
-    alert("At least one character type must be selected.");
+  if (passwordLength === null || passwordLength === "") {
+    showMessage("Password must be at least 8 characters.");
     return;
   }
+
+  hideMessage();
+
+  var includeLowercase = true;
+  var includeUppercase = true;
+  var includeNumeric = true;
+  var includeSpecialChars = true;
 
   return {
     length: passwordLength,
@@ -120,25 +113,52 @@ function getPasswordOptions() {
   };
 }
 
-// Function for getting a random element from an array
+function showMessage(message) {
+  var messageElement = document.getElementById('message');
+  messageElement.textContent = message;
+}
+
+function hideMessage() {
+  var messageElement = document.getElementById('message');
+  messageElement.textContent = '';
+}
+
 function getRandom(arr) {
+  var randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 }
 
-// Function to generate password with user input
-function getPasswordOptions() {
+function generatePassword() {
+  var options = getPasswordOptions();
+  if (!options) {
+    return "";
+  }
 
+  var charPool = "";
+    if (options.includeLowercase) charPool += lowerCasedCharacters.join('');
+    if (options.includeUppercase) charPool += upperCasedCharacters.join('');
+    if (options.includeNumeric) charPool += numericCharacters.join('');
+    if (options.includeSpecialChars) charPool += specialCharacters.join('');
+
+  var generatedPassword = "";
+    for (var i = 0; i < options.length; i++) {
+    generatedPassword += getRandom(charPool);
+  }
+
+return generatedPassword;
 }
 
-// Get references to the #generate element
+var messageElement = document.getElementById('message');
 var generateBtn = document.querySelector('#generate');
 
-// Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
 
   passwordText.value = password;
+
+generateBtn.style.display = 'none';
+messageElement.style.display = 'none';
 }
 
-// Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);

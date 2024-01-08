@@ -5,30 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Password Generator</title>
-    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <div class="wrapper">
-      <header>
+      <header class="text-center">
         <h1>Password Generator</h1>
       </header>
       <div class="card">
         <div class="card-header">
-          <h2>Generate a Password</h2>
+          <h2>Your password will be generated below:</h2>
+          <p>Please note, your password will include the following:
+            <li>At least 1 uppercase character</li>
+            <li>At least 1 lowercase character</li>
+            <li>At least 1 special character i.e. @£$%^</li>
+            <li>At least 1 number</li>
+            <li>Be at least 8 characters long</li>
+          </p>
         </div>
-        <div class="card-body">
+
+        <div class="mx-auto mt-4" style="max-width: 400px;">
           <textarea
             readonly
             id="password"
+            class="form-control"
             placeholder="Your Secure Password"
             aria-label="Generated Password"
           ></textarea>
         </div>
-        <div class="card-footer">
-          <button id="generate" class="btn">Generate Password</button>
-        </div>
-      </div>
+
+
+    <div class="text-center mt-4">
+      <button id="generate" class="btn btn-primary">Generate Password</button>
     </div>
+
+    <div id="message"></div>
+
+      </div>
+
+    </div>
+
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
   </body>
+
 </html>
